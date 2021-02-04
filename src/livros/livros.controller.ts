@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FirebaseService } from 'src/services/firebase.service';
 import { EditarLivroDto } from './dto/editar-livro.dto';
 import { CriarLivroDto } from './dto/criar-livro.dto';
@@ -13,6 +13,7 @@ export class LivrosController {
 
     @Get()
     @ApiOperation({ summary: 'Obter livros' })
+    @ApiBearerAuth()
     @ApiResponse({ status: 404, description: 'Não há livros' })
     async getList() {
         return await this.firebaseService.getListDocument('livros');

@@ -30,8 +30,8 @@ export class AutorController {
     @ApiOperation({ summary: 'Editar livros do autor' })
     async addLivroAoAutor(@Body() body: EditarLivrosDoAutorDto) {
         try {
-            const response = await this.firebaseService.getDocument('autores', body.id);
-            return await this.firebaseService.updateDocument('autores', body.id, {...response, livros: body.livros})
+            const response = await this.firebaseService.getDocument('autores', body.id) as { nome: string, id: string };
+            return await this.firebaseService.updateDocument('autores', body.id, {nome: response.nome, livros: body.livros})
         } catch (err) {
             return err;
         }
